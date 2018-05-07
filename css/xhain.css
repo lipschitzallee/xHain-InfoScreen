@@ -1,0 +1,28 @@
+body {
+  background: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)), url("../images/hain.jpg");
+  background-size: cover;
+}
+
+img.noborder {
+  background:none !important; 
+  border:none !important; 
+  box-shadow:none !important;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  text-transform: none !important;
+}
+
+#events table td {
+    border: none;
+    padding-right: 50px;
+    white-space: nowrap;
+}
+
+#events table td:last-child {
+    padding-right: 0;
+}
+
+#twitter iframe {
+    width: 34% !important;
+}

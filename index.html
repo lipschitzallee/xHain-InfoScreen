@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>xHain SlideShow</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<style type="text/css">
+
+	</style>
+	<link rel="stylesheet" href="css/xhain.css">
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+	
+    <!-- xhain calendar -->
+    <script src="js/moment-with-locales.js"></script>
+    <script src="js/flask-utils.js"></script>
+	<script>
+
+        function updateEvents () {
+            var calendarUrl = "https://x-hain.de/xhain/json/upcommingtasks/";
+            
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    flaskJsonObject = JSON.parse(this.responseText);
+                    processed = processFlaskJson2SingleElements(flaskJsonObject);
+                    document.getElementById('events-table').innerHTML = "";
+                    document.getElementById('events-table').appendChild(SingleElements2HtmlTable(processed, 'en', 5));
+                }
+            };
+            xhttp.open("GET", calendarUrl, true);
+            xhttp.send(); 
+        }
+
+        updateEvents();
+        /* triggers every hour */
+        var updateEveryHourInterval = window.setInterval( function() {
+            updateEvents();
+        }, 60000)
+	</script>
+
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section data-markdown>
+				<script type="text/template">
+				## xHain hack+makespace
+
+				<img src="https://wiki.x-hain.de/images/c/cc/XHain_logo.png" height="400" class="noborder"/>
+
+				Curious? Come visit us every monday evening!
+
+				</script>
+			</section>
+
+			<section id="events">
+                <h2>upcoming events</h2>
+                <div id="events-table"></div>
+            </section>
+			
+			<section id="pictures" style="position: relative; height: 100%; width: 100%;">
+                
+				<img id="photo-dino" style="width: 35%;transform: rotate(4deg);position: absolute;top: 67px;right: 24px;" src="images/photos/20180416_193205.jpg">
+				
+				<img id="photo-laser" style="width: 35%;transform: rotate(-10deg);position: absolute;top: -17px;left: 20px;" src="images/photos/20180416_192148_HDR.jpg">
+				
+				<img id="photo-flashforge" style="width: 43%;transform: rotate(0deg);position: absolute;top: 172px;left: 268px;" src="images/photos/20180416_192040_HDR.jpg">
+
+				<img id="photo-groot" style="width: 40%;transform: rotate(10deg);position: absolute;bottom: 14px;left: 30px;" src="images/photos/20180416_192500_HDR.jpg">
+                
+            </section>
+            
+            <!--<section id="twitter">
+                    <h2>latest tweets</h2>
+                    <div id="tweet">
+                       <a class="twitter-timeline"
+                        href="https://twitter.com/xHain_hackspace"
+                        data-tweet-limit="1"
+                        data-theme="dark"
+                        data-show-replies="false">
+                        Tweets by @twittername</a>
+                        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <a class="twitter-timeline"  href="https://twitter.com/search?q=xHain_hackspace" data-widget-id="977149686552387584">Tweets über xHain_hackspace </a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                      
+                    </div>
+                </section>-->
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			// Display presentation control arrows
+			controls: false,
+
+			// Help the user learn the controls by providing hints, for example by
+			// bouncing the down arrow when they first encounter a vertical slide
+			controlsTutorial: false,
+
+			// Determines where controls appear, "edges" or "bottom-right"
+			controlsLayout: 'bottom-right',
+
+			// Visibility rule for backwards navigation arrows; "faded", "hidden"
+			// or "visible"
+			controlsBackArrows: 'faded',
+
+			// Display a presentation progress bar
+			progress: false,
+
+			// Set default timing of 2 minutes per slide
+			defaultTiming: 20,
+
+			// Display the page number of the current slide
+			slideNumber: false,
+
+			// Push each slide change to the browser history
+			history: false,
+
+			// Enable keyboard shortcuts for navigation
+			keyboard: true,
+
+			// Enable the slide overview mode
+			overview: true,
+
+			// Vertical centering of slides
+			center: true,
+
+			// Enables touch navigation on devices with touch input
+			touch: true,
+
+			// Loop the presentation
+			loop: true,
+
+			// Change the presentation direction to be RTL
+			rtl: false,
+
+			// Randomizes the order of slides each time the presentation loads
+			shuffle: false,
+
+			// Turns fragments on and off globally
+			fragments: true,
+
+			// Flags if the presentation is running in an embedded mode,
+			// i.e. contained within a limited portion of the screen
+			embedded: false,
+
+			// Flags if we should show a help overlay when the questionmark
+			// key is pressed
+			help: false,
+
+			// Flags if speaker notes should be visible to all viewers
+			showNotes: false,
+
+			// Global override for autoplaying embedded media (video/audio/iframe)
+			// - null: Media will only autoplay if data-autoplay is present
+			// - true: All media will autoplay, regardless of individual setting
+			// - false: No media will autoplay, regardless of individual setting
+			autoPlayMedia: true,
+
+			// Number of milliseconds between automatically proceeding to the
+			// next slide, disabled when set to 0, this value can be overwritten
+			// by using a data-autoslide attribute on your slides
+			autoSlide: 20000,
+
+			// Stop auto-sliding after user input
+			autoSlideStoppable: true,
+
+			// Use this method for navigation when auto-sliding
+			autoSlideMethod: Reveal.navigateNext,
+
+			// Enable slide navigation via mouse wheel
+			mouseWheel: false,
+
+			// Hides the address bar on mobile devices
+			hideAddressBar: true,
+
+			// Opens links in an iframe preview overlay
+			previewLinks: false,
+
+			// Transition style
+			transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			// Transition speed
+			transitionSpeed: 'default', // default/fast/slow
+
+			// Transition style for full page slide backgrounds
+			backgroundTransition: 'fade', // none/fade/slide/convex/concave/zoom
+
+			// Number of slides away from the current that are visible
+			viewDistance: 3,
+
+			// Parallax background image
+			parallaxBackgroundImage: '', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+
+			// Parallax background size
+			parallaxBackgroundSize: '', // CSS syntax, e.g. "2100px 900px"
+
+			// Number of pixels to move the parallax background per slide
+			// - Calculated automatically unless specified
+			// - Set to 0 to disable movement along an axis
+			parallaxBackgroundHorizontal: null,
+			parallaxBackgroundVertical: null,
+
+			// The display mode that will be used to show slides
+			display: 'block',
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+			]
+		});
+	</script>
+</body>
+
+</html>
